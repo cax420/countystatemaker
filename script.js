@@ -22,6 +22,49 @@ class CountyMap {
         this.undoStack = [];
         this.redoStack = [];
 
+        this.connecticutCounties = {
+            // Map all possible variations to the standardized name
+            'New Haven': 'New Haven County, Connecticut',
+            'New Haven County': 'New Haven County, Connecticut',
+            'New Haven, CT': 'New Haven County, Connecticut',
+            'New Haven County, CT': 'New Haven County, Connecticut',
+            
+            'Hartford': 'Hartford County, Connecticut',
+            'Hartford County': 'Hartford County, Connecticut',
+            'Hartford, CT': 'Hartford County, Connecticut',
+            'Hartford County, CT': 'Hartford County, Connecticut',
+            
+            'Fairfield': 'Fairfield County, Connecticut',
+            'Fairfield County': 'Fairfield County, Connecticut',
+            'Fairfield, CT': 'Fairfield County, Connecticut',
+            'Fairfield County, CT': 'Fairfield County, Connecticut',
+            
+            'Litchfield': 'Litchfield County, Connecticut',
+            'Litchfield County': 'Litchfield County, Connecticut',
+            'Litchfield, CT': 'Litchfield County, Connecticut',
+            'Litchfield County, CT': 'Litchfield County, Connecticut',
+            
+            'Middlesex': 'Middlesex County, Connecticut',
+            'Middlesex County': 'Middlesex County, Connecticut',
+            'Middlesex, CT': 'Middlesex County, Connecticut',
+            'Middlesex County, CT': 'Middlesex County, Connecticut',
+            
+            'New London': 'New London County, Connecticut',
+            'New London County': 'New London County, Connecticut',
+            'New London, CT': 'New London County, Connecticut',
+            'New London County, CT': 'New London County, Connecticut',
+            
+            'Tolland': 'Tolland County, Connecticut',
+            'Tolland County': 'Tolland County, Connecticut',
+            'Tolland, CT': 'Tolland County, Connecticut',
+            'Tolland County, CT': 'Tolland County, Connecticut',
+            
+            'Windham': 'Windham County, Connecticut',
+            'Windham County': 'Windham County, Connecticut',
+            'Windham, CT': 'Windham County, Connecticut',
+            'Windham County, CT': 'Windham County, Connecticut'
+        };
+
         // Special cases mapping for problematic counties/cities
         this.specialCases = {
             'VA': {
@@ -64,70 +107,57 @@ class CountyMap {
                 'Waynesboro City': 'Waynesboro city',
                 'Winchester City': 'Winchester city'
             },
-            'CT': {
-                'New Haven': 'New Haven County',
-                'Hartford': 'Hartford County',
-                'Fairfield': 'Fairfield County',
-                'Litchfield': 'Litchfield County',
-                'Middlesex': 'Middlesex County',
-                'New London': 'New London County',
-                'Tolland': 'Tolland County',
-                'Windham': 'Windham County'
+            'AK': {
+                'Aleutians East': 'Aleutians East Borough',
+                'Aleutians West': 'Aleutians West Census Area',
+                'Anchorage': 'Anchorage Municipality',
+                'Bristol Bay': 'Bristol Bay Borough',
+                'Denali': 'Denali Borough',
+                'Fairbanks North Star': 'Fairbanks North Star Borough',
+                'Haines': 'Haines Borough',
+                'Juneau': 'Juneau City and Borough',
+                'Kenai Peninsula': 'Kenai Peninsula Borough',
+                'Ketchikan Gateway': 'Ketchikan Gateway Borough',
+                'Kodiak Island': 'Kodiak Island Borough',
+                'Lake and Peninsula': 'Lake and Peninsula Borough',
+                'Matanuska-Susitna': 'Matanuska-Susitna Borough',
+                'North Slope': 'North Slope Borough',
+                'Northwest Arctic': 'Northwest Arctic Borough',
+                'Petersburg': 'Petersburg Borough',
+                'Sitka': 'Sitka City and Borough',
+                'Skagway': 'Skagway Municipality',
+                'Wrangell': 'Wrangell City and Borough',
+                'Yakutat': 'Yakutat City and Borough',
+                'Bethel': 'Bethel Census Area',
+                'Copper River': 'Copper River Census Area',
+                'Dillingham': 'Dillingham Census Area',
+                'Hoonah-Angoon': 'Hoonah-Angoon Census Area',
+                'Kusilvak': 'Kusilvak Census Area',
+                'Nome': 'Nome Census Area',
+                'Prince of Wales-Hyder': 'Prince of Wales-Hyder Census Area',
+                'Southeast Fairbanks': 'Southeast Fairbanks Census Area',
+                'Yukon-Koyukuk': 'Yukon-Koyukuk Census Area'
             }
         };
 
         this.stateMapping = {
-            'AL': 'Alabama',
-            'AK': 'Alaska',
-            'AZ': 'Arizona',
-            'AR': 'Arkansas',
-            'CA': 'California',
-            'CO': 'Colorado',
-            'CT': 'Connecticut',
-            'DE': 'Delaware',
-            'FL': 'Florida',
-            'GA': 'Georgia',
-            'HI': 'Hawaii',
-            'ID': 'Idaho',
-            'IL': 'Illinois',
-            'IN': 'Indiana',
-            'IA': 'Iowa',
-            'KS': 'Kansas',
-            'KY': 'Kentucky',
-            'LA': 'Louisiana',
-            'ME': 'Maine',
-            'MD': 'Maryland',
-            'MA': 'Massachusetts',
-            'MI': 'Michigan',
-            'MN': 'Minnesota',
-            'MS': 'Mississippi',
-            'MO': 'Missouri',
-            'MT': 'Montana',
-            'NE': 'Nebraska',
-            'NV': 'Nevada',
-            'NH': 'New Hampshire',
-            'NJ': 'New Jersey',
-            'NM': 'New Mexico',
-            'NY': 'New York',
-            'NC': 'North Carolina',
-            'ND': 'North Dakota',
-            'OH': 'Ohio',
-            'OK': 'Oklahoma',
-            'OR': 'Oregon',
-            'PA': 'Pennsylvania',
-            'RI': 'Rhode Island',
-            'SC': 'South Carolina',
-            'SD': 'South Dakota',
-            'TN': 'Tennessee',
-            'TX': 'Texas',
-            'UT': 'Utah',
-            'VT': 'Vermont',
-            'VA': 'Virginia',
-            'WA': 'Washington',
-            'WV': 'West Virginia',
-            'WI': 'Wisconsin',
-            'WY': 'Wyoming',
-            'DC': 'District of Columbia'
+            'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona',
+            'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado',
+            'CT': 'Connecticut', 'DE': 'Delaware', 'FL': 'Florida',
+            'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho',
+            'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa',
+            'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana',
+            'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts',
+            'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi',
+            'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska',
+            'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey',
+            'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina',
+            'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma',
+            'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island',
+            'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee',
+            'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont',
+            'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
+            'WI': 'Wisconsin', 'WY': 'Wyoming', 'DC': 'District of Columbia'
         };
 
         this.playerColors.forEach(({color, name}) => {
@@ -157,19 +187,66 @@ class CountyMap {
         }
     }
 
+    debugConnecticutCounty(name) {
+        console.log('Connecticut County Debug:', {
+            originalName: name,
+            normalized: this.normalizeCountyName(name),
+            inMapping: !!this.connecticutCounties[name],
+            possibleMatches: Object.keys(this.connecticutCounties)
+                .filter(k => k.toLowerCase().includes(name.split(',')[0].toLowerCase()))
+        });
+    }
+
     normalizeCountyName(name) {
         if (!name) return '';
         
+        // Remove quotes, periods, and extra spaces
         let normalized = name.replace(/[".]/g, '').trim();
-        let parts = normalized.split(',').map(part => part.trim());
         
+        // Special handling for Connecticut
+        if (normalized.includes('CT') || normalized.includes('Connecticut')) {
+            // Try exact match first
+            if (this.connecticutCounties[normalized]) {
+                return this.connecticutCounties[normalized];
+            }
+            
+            // Try without state
+            const withoutState = normalized.split(',')[0].trim();
+            if (this.connecticutCounties[withoutState]) {
+                return this.connecticutCounties[withoutState];
+            }
+            
+            // Try with "County" if not present
+            if (!withoutState.includes('County')) {
+                const withCounty = withoutState + ' County';
+                if (this.connecticutCounties[withCounty]) {
+                    return this.connecticutCounties[withCounty];
+                }
+            }
+        }
+        
+        let parts = normalized.split(',').map(part => part.trim());
         if (parts.length === 2) {
             let [region, state] = parts;
             state = state.trim();
             
             const fullState = this.stateMapping[state] || state;
             
-            if (state === 'VA' || state === 'Virginia') {
+            if (state === 'AK' || state === 'Alaska') {
+                if (this.specialCases['AK'][region]) {
+                    region = this.specialCases['AK'][region];
+                } else {
+                    if (region.includes('Borough')) {
+                        region = region.replace(/\s*Borough\s*$/i, ' Borough');
+                    } else if (region.includes('Municipality')) {
+                        region = region.replace(/\s*Municipality\s*$/i, ' Municipality');
+                    } else if (region.includes('Census Area')) {
+                        region = region.replace(/\s*Census Area\s*$/i, ' Census Area');
+                    } else if (region.includes('City and Borough')) {
+                        region = region.replace(/\s*City and Borough\s*$/i, ' City and Borough');
+                    }
+                }
+            } else if (state === 'VA' || state === 'Virginia') {
                 const isCity = region.toLowerCase().includes('city');
                 if (isCity) {
                     const baseRegion = region.replace(/\s*city\s*$/i, '').trim();
@@ -181,23 +258,9 @@ class CountyMap {
                 } else if (!region.toLowerCase().includes('county')) {
                     region += ' County';
                 }
-            } else if (state === 'CT' || state === 'Connecticut') {
-                if (this.specialCases['CT'][region]) {
-                    region = this.specialCases['CT'][region];
-                } else if (!region.toLowerCase().includes('county')) {
-                    region += ' County';
-                }
             } else if (state === 'LA' || state === 'Louisiana') {
                 if (!region.toLowerCase().includes('parish')) {
                     region += ' Parish';
-                }
-            } else if (state === 'AK' || state === 'Alaska') {
-                if (region.toLowerCase().includes('borough')) {
-                    region = region.replace(/\s*borough\s*$/i, ' Borough');
-                } else if (region.toLowerCase().includes('municipality')) {
-                    region = region.replace(/\s*municipality\s*$/i, ' Municipality');
-                } else {
-                    region += ' Census Area';
                 }
             } else if (!region.toLowerCase().includes('county')) {
                 region += ' County';
@@ -234,6 +297,7 @@ class CountyMap {
             svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
             
             const countyPaths = svgDoc.querySelectorAll('path');
+            let matchedCount = 0;
             
             countyPaths.forEach(county => {
                 county.classList.add('county');
@@ -244,6 +308,20 @@ class CountyMap {
                     const normalizedName = this.normalizeCountyName(originalName);
                     county.setAttribute('data-county', normalizedName);
                     county.setAttribute('data-original-name', originalName);
+                    
+                    // Debug Connecticut counties
+                    if (originalName.includes('CT') || originalName.includes('Connecticut')) {
+                        this.debugConnecticutCounty(originalName);
+                    }
+
+                    if (this.countyData[normalizedName]) {
+                        matchedCount++;
+                    } else {
+                        console.log('Unmatched county:', {
+                            original: originalName,
+                            normalized: normalizedName
+                        });
+                    }
                 }
             });
             
@@ -251,12 +329,13 @@ class CountyMap {
             mapWrapper.innerHTML = svg.outerHTML;
             this.attachCountyEventListeners();
             
+            console.log(`Matched ${matchedCount} out of ${countyPaths.length} counties`);
+            
         } catch (error) {
             console.error('Error loading map:', error);
             throw new Error('Failed to load county map');
         }
     }
-
     async loadCountyData() {
         try {
             const response = await fetch('data.csv');
@@ -272,6 +351,14 @@ class CountyMap {
                     ...data,
                     originalName
                 };
+                // Debug log for Connecticut counties
+                if (originalName.includes('CT') || originalName.includes('Connecticut')) {
+                    console.log('CSV County Data:', {
+                        original: originalName,
+                        normalized: normalizedName,
+                        data: data
+                    });
+                }
             });
             
         } catch (error) {
@@ -279,16 +366,20 @@ class CountyMap {
             throw new Error('Failed to load county data');
         }
     }
+
     parseCSV(csvText) {
         const data = {};
         const lines = csvText.split('\n');
         
-        lines.forEach((line) => {
+        lines.forEach((line, index) => {
             if (!line.trim()) return;
             
             try {
                 const parts = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
-                if (!parts || parts.length < 5) return;
+                if (!parts || parts.length < 5) {
+                    console.log(`Skipping invalid line ${index}:`, line);
+                    return;
+                }
                 
                 const countyName = parts[0].replace(/[".]/g, '').trim();
                 const population = parseInt(parts[1].replace(/[",]/g, ''));
@@ -304,7 +395,7 @@ class CountyMap {
                 };
                 
             } catch (err) {
-                console.warn(`Failed to parse line: ${line}`);
+                console.warn(`Failed to parse line ${index}:`, line);
             }
         });
         
@@ -345,6 +436,37 @@ class CountyMap {
         }
     }
 
+    handleWebSocketMessage(data) {
+        switch (data.type) {
+            case 'gameState':
+                this.applyGameState(data.counties);
+                this.updatePlayerStats();
+                break;
+                
+            case 'colorUpdate':
+                const county = document.querySelector(`[data-county="${data.countyName}"]`);
+                if (county) {
+                    county.style.fill = data.color;
+                    const originalName = county.getAttribute('data-original-name') || data.countyName;
+                    this.addActivity(`${originalName} claimed by ${this.getColorName(data.color)}`);
+                    this.updatePlayerStats();
+                }
+                break;
+                
+            case 'clearAll':
+                document.querySelectorAll('.county').forEach(county => {
+                    county.style.fill = '';
+                });
+                this.addActivity('Map cleared');
+                this.updatePlayerStats();
+                break;
+                
+            case 'userCount':
+                this.updateUserCount(data.count);
+                break;
+        }
+    }
+
     setupEventListeners() {
         const colorPicker = document.querySelector('.color-picker');
         colorPicker.innerHTML = '';
@@ -366,7 +488,6 @@ class CountyMap {
             clearBtn.addEventListener('click', () => this.clearAll());
         }
 
-        // Add undo/redo buttons
         const controlsContainer = document.createElement('div');
         controlsContainer.className = 'edit-controls';
         controlsContainer.innerHTML = `
@@ -385,7 +506,6 @@ class CountyMap {
             mapControls.appendChild(controlsContainer);
         }
     }
-
     createPlayerStatsDisplay() {
         const statsContainer = document.createElement('div');
         statsContainer.className = 'player-stats-container';
@@ -453,6 +573,7 @@ class CountyMap {
             this.isPanning = false;
         });
     }
+
     attachCountyEventListeners() {
         document.querySelectorAll('.county').forEach(county => {
             county.addEventListener('click', (e) => this.handleCountyClick(e));
@@ -475,6 +596,12 @@ class CountyMap {
         const countyId = county.getAttribute('data-county');
         const originalName = county.getAttribute('data-original-name');
         const previousColor = county.style.fill;
+
+        console.log('County Click:', {
+            normalizedName: countyId,
+            originalName: originalName,
+            data: this.countyData[countyId]
+        });
         
         this.addToUndoStack({
             countyId: countyId,
@@ -554,49 +681,6 @@ class CountyMap {
         }
     }
 
-    handleWebSocketMessage(data) {
-        switch (data.type) {
-            case 'gameState':
-                this.applyGameState(data.counties);
-                this.updatePlayerStats();
-                break;
-                
-            case 'colorUpdate':
-                const county = document.querySelector(`[data-county="${data.countyName}"]`);
-                if (county) {
-                    county.style.fill = data.color;
-                    const originalName = county.getAttribute('data-original-name') || data.countyName;
-                    this.addActivity(`${originalName} claimed by ${this.getColorName(data.color)}`);
-                    this.updatePlayerStats();
-                }
-                break;
-                
-            case 'clearAll':
-                document.querySelectorAll('.county').forEach(county => {
-                    county.style.fill = '';
-                });
-                this.addActivity('Map cleared');
-                this.updatePlayerStats();
-                break;
-                
-            case 'userCount':
-                this.updateUserCount(data.count);
-                break;
-        }
-    }
-
-    applyGameState(counties) {
-        if (!counties) return;
-        
-        document.querySelectorAll('.county').forEach(county => {
-            const countyId = county.getAttribute('data-county');
-            const countyData = counties[countyId];
-            county.style.fill = countyData ? countyData.color : '';
-        });
-        
-        this.updatePlayerStats();
-    }
-
     updateUserCount(count) {
         const userCountElement = document.getElementById('userCount');
         if (userCountElement) {
@@ -614,6 +698,18 @@ class CountyMap {
     getColorName(color) {
         const playerColor = this.playerColors.find(pc => pc.color.toUpperCase() === color.toUpperCase());
         return playerColor ? playerColor.name : color;
+    }
+
+    applyGameState(counties) {
+        if (!counties) return;
+        
+        document.querySelectorAll('.county').forEach(county => {
+            const countyId = county.getAttribute('data-county');
+            const countyData = counties[countyId];
+            county.style.fill = countyData ? countyData.color : '';
+        });
+        
+        this.updatePlayerStats();
     }
 
     addToUndoStack(action) {
