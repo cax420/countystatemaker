@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USA County Map</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="map-container">
+            <div class="controls">
+                <div class="color-picker">
+                    <button class="color-btn" data-color="#ff6b6b"></button>
+                    <button class="color-btn" data-color="#4ecdc4"></button>
+                    <button class="color-btn" data-color="#45b7d1"></button>
+                    <button class="color-btn" data-color="#96ceb4"></button>
+                </div>
+                <button id="clearAll" class="clear-btn">Clear All</button>
+            </div>
+            <div id="mapWrapper" class="map-wrapper"></div>
+            <div id="tooltip" class="tooltip"></div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="stats-card">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <h3>Statistics</h3>
+                </div>
+                <div id="statistics" class="card-content">
+                    <p>Total Population: <span id="totalPopulation">0</span></p>
+                    <p>Total Area: <span id="totalArea">0</span> sq mi</p>
+                    <p>Colored Counties: <span id="coloredCounties">0</span></p>
+                </div>
+            </div>
+
+            <div class="users-card">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <path d="M20 8v6"></path>
+                        <path d="M23 11h-6"></path>
+                    </svg>
+                    <h3>Active Users</h3>
+                </div>
+                <div class="card-content">
+                    <p><span id="userCount">1</span> user(s) online</p>
+                </div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                    <h3>Recent Activity</h3>
+                </div>
+                <div id="activityLog" class="card-content">
+                    <!-- Activity items will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
